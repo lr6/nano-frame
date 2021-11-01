@@ -2,6 +2,7 @@ const path = require('path')
 
 const htmlWebpackPlugin = require('html-webpack-plugin')
 const webpack = require('webpack')
+const UglifyJSPlugin = require('uglifyjs-webpack-plugin')
 
 module.exports = {
     /* 入口 */
@@ -22,7 +23,7 @@ module.exports = {
     /* 输出到 dist 文件夹，输出名字为bundle.js*/
     output: {
         path: path.join(__dirname, './dist'),
-        filename: '[name].[hash].js',
+        filename: '[name].[chunkhash].js',
         chunkFilename: '[name].[chunkhash].js'
     },
 
@@ -51,28 +52,13 @@ module.exports = {
         ]
     },
 
-    /* webpack-dev-server 配置 */
-    devServer: {
-        port: 8080,
-        contentBase: path.join(__dirname, './dist'),
-        /*
-        * historyApiFallback，让所有的404定位到index.html。
-        * */
-        historyApiFallback: true,
-        /*
-        * host 指定一个host,默认是localhost。
-        * 如果你希望服务器外部可以访问，指定如下：host: "0.0.0.0"。比如你用手机通过IP访问。
-        * */
-        host: '0.0.0.0'
-    },
-
     resolve: {
         alias: {
             "@": path.join(__dirname, 'src')
         }
     },
 
-    devtool: 'inline-source-map',
+    devtool: 'cheap-module-source-map',
 
     plugins: [
         new htmlWebpackPlugin({
@@ -81,6 +67,7 @@ module.exports = {
         }),
         new webpack.optimize.CommonsChunkPlugin({
             name: 'vendor'
-        })
+        }),
+        new UglifyJSPlugin()
     ]
 }
