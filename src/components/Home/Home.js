@@ -17,7 +17,7 @@ export default class Home extends Component {
     render() {
         return(
             <div>
-                <div>Home + add 4</div>
+                <div>Home + add + seven</div>
                 <div>计数： {this.state.count}</div>
                 <button onClick={() => this._handClick()}>add</button>
             </div>

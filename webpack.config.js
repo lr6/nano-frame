@@ -68,6 +68,17 @@ module.exports = {
         new webpack.optimize.CommonsChunkPlugin({
             name: 'vendor'
         }),
-        new UglifyJSPlugin()
+        new webpack.optimize.CommonsChunkPlugin({
+            name: 'runtime'
+        }),
+        // 添加压缩后，dist文件夹 从 3m 到 340k
+        new UglifyJSPlugin(),
+        // 添加环境变量为生产环境后，dist文件夹 从 340k 到 260k
+        new webpack.DefinePlugin({
+            'process.env': {
+                'NODE_ENV': JSON.stringify('production')
+            }
+        }),
+        new webpack.HashedModuleIdsPlugin()
     ]
 }
