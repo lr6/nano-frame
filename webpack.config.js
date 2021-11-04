@@ -1,4 +1,5 @@
 const merge = require('webpack-merge');
+const commonConfig = require('./webpack.common.config')
 
 const webpack = require('webpack');
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
@@ -11,9 +12,9 @@ const publicConfig = {
         rules: [
             {
                 test: /\.css$/,
-                use: ExtractTextWebpackPlugin.extract({
+                use: ExtractTextPlugin.extract({
                     fallback: 'style-loader',
-                    use: 'css-loader'
+                    use: ['css-loader?modules&localIdentName=[local]-[hash:base64:5]', 'postcss-loader']
                 })
             }
         ]

@@ -5,7 +5,8 @@ const webpack = require('webpack')
 const commonConfig = {
     entry: {
         app: [
-            "react-hot-loader/patch",
+            "babel-polyfill",
+            'react-hot-loader/patch',
             path.join(__dirname, 'src/index.js')
         ],
         vendor: [
@@ -44,7 +45,7 @@ const commonConfig = {
     },
 
     plugins: [
-        new htmlWebpackPlugin({
+        new HtmlWebpackPlugin({
             filename: 'index.html',
             template: path.join(__dirname, 'src/index.html')
         }),
